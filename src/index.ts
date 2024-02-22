@@ -1,21 +1,13 @@
-import { randomBytes } from "crypto";
 import csv from "csv-stringify";
 import fs from "fs";
 import path from "path";
-import { OutdatedPackage } from "./utils";
+import logger from "./logger";
+import { OutdatedPackage, ensureDirExist } from "./utils";
 
-const exportToCSV = (packages: OutdatedPackage[]) => {
-  const today = new Date();
-  const dateString =
-    today.getFullYear() +
-    "-" +
-    (today.getMonth() + 1).toString().padStart(2, "0") +
-    "-" +
-    today.getDate().toString().padStart(2, "0");
-
-  const randomString = randomBytes(2).toString("hex");
-
-  const filename = `outdated-packages/${dateString}/${randomString}.csv`;
+const exportToCSV = (packages: OutdatedPackage[], filename: string) => {
+  if (!packages.length) {
+    return;
+  }
 
   csv.stringify(
     packages,
@@ -26,12 +18,13 @@ const exportToCSV = (packages: OutdatedPackage[]) => {
     (err, csvData) => {
       if (err) throw err;
 
-      fs.mkdirSync(path.join(process.cwd(), path.dirname(filename)), {
-        recursive: true,
-      });
+      ensureDirExist();
 
       fs.writeFileSync(filename, csvData);
-      console.log(`Outdated packages report saved to ${filename}`);
+      logger.success(
+        path.basename(filename, ".csv"),
+        `Report saved to ${filename}`
+      );
     }
   );
 };

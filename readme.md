@@ -1,43 +1,70 @@
 # outdated-package-checker
 
-A command-line tool to easily identify and export a list of outdated dependencies in your Node.js projects, supporting both npm and Yarn package managers.
+A versatile command-line tool to streamline dependency management in your Node.js projects. It supports both npm and Yarn, providing insights into outdated packages and the ability to export the analysis as CSV files.
 
 ## Features
 
--   Accurate outdated package detection
--   Differentiates between major, minor, and patch updates
--   Export results to a CSV file for further analysis
--   Flexible package manager selection (npm or Yarn)
--   Easy-to-use command-line interface
+-   **Comprehensive Outdated Package Detection:** Accurately pinpoints outdated packages across your project's dependencies.
+-   **Upgrade Type Identification:** Differentiates between major, minor, and patch updates for informed decision-making.
+-   **CSV Export:** Generates detailed reports in CSV format for further analysis and tracking.
+-   **Package Manager Flexibility:** Seamlessly works with both npm and Yarn.
+-   **Directory Scanning:** Scans your project structure with customizable exclusions, generating individual CSV reports for each subdirectory containing a `package.json`.
+-   **Intelligent Exclusions:** Leverages `.gitignore` patterns and recursive `node_modules` omission to refine the package scanning process.
 
 ## Usage
 
-1.  Generate Report:
+**1\. Basic Report Generation:**
+
+-   Defaults to Yarn:
 
     ```bash
-    npx outdated-package-checker # (Defaults to Yarn)
+    npx outdated-package-checker
+    ```
+
+-   Specify npm:
+
+    ```bash
     npx outdated-package-checker --package-manager npm
     ```
 
-    This will create a CSV file named `outdated_packages/YYYY-MM-DD/{randomString}.csv`.
+**2\. Directory Scanning Mode:**
 
-## Example CSV Output
+```bash
+npx outdated-package-checker --scan-dir
+```
 
+**3\. Exclude Directories:**
+
+```bash
+npx outdated-package-checker --scan-dir --exclude-dir src,test
 ```
-package,current,wanted,latest,upgradeType
-lodash,4.17.21,4.17.21,4.17.30,patch
-express,4.10.2,4.10.2,4.17.3,minor
-```
+
+## CSV Output
+
+-   A CSV file is generated (e.g., `outdated_packages/2024-02-23/<dir basename>.csv`).
+-   Files include the directory name where the `package.json` was found for directory scanning mode.
+-   Contains the following columns:
+    -   `package`
+    -   `current`
+    -   `wanted`
+    -   `latest`
+    -   `upgradeType`   
 
 ## Configuration
 
-The `--package-manager` option allows you to specify either 'npm' or 'yarn'.
+-   **Package Manager:** Use `--package-manager npm` or `--package-manager yarn`.
+-   **Directory Scanning:** Enable with `--scan-dir`.
+-   **Exclusions:** Use `--exclude-dir` (comma-separated list of directory names).
 
 ## Contributing
 
-We welcome contributions! Feel free to open issues or submit pull requests.
+We welcome contributions to improve this tool! Feel free to open issues for bug reports or feature suggestions. To submit code changes, please follow these steps:
+
+1.  Fork the repository.
+2.  Create a new branch.
+3.  Make your changes and commit them.
+4.  Open a pull request.
 
 ## License
 
 This project is released under the MIT License.
-
