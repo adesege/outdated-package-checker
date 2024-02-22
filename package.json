@@ -1,0 +1,22 @@
+{
+  "name": "outdated-package-checker",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "repository": "https://github.com/adesege/package-upgrade-advisor.git",
+  "author": "Temitayo Fadojutimi <fadojutimitemitayo@gmail.com",
+  "license": "MIT",
+  "files": [
+    "dist/"
+  ],
+  "bin": "./bin/exportToCSV.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/minimist": "^1.2.5",
+    "@types/node": "^20.11.19",
+    "csv-stringify": "^6.4.5",
+    "minimist": "^1.2.8",
+    "typescript": "^5.3.3"
+  }
+}

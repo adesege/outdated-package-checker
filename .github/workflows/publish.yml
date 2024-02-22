@@ -1,0 +1,34 @@
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18 
+          registry-url: https://registry.npmjs.org/
+      - uses: googleapis/release-please-action@v3
+        with:
+          release-type: node
+          package-name: outdated-package-checker
+          path: ./.release-please-manifest.json 
+      - run: npm install 
+      - run: npm run build
+      - name: Create release archive
+        run:  tar -czvf outdated-package-checker.tar.gz dist 
+      - run: npm publish --access public
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }} 
+      - name: Upload Release Archive
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }} 
+          asset_path: ./outdated-package-checker.tar.gz
+          asset_name: outdated-package-checker.tar.gz
+          asset_content_type: application/gzip 
