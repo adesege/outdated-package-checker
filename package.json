@@ -1,6 +1,6 @@
 {
   "name": "outdated-package-checker",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/index.js",
   "repository": "https://github.com/adesege/package-upgrade-advisor.git",
   "author": "Temitayo Fadojutimi <fadojutimitemitayo@gmail.com",
@@ -10,9 +10,10 @@
   ],
   "bin": "./bin/exportToCSV.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepublish": "rm -rf dist && yarn build"
   },
-  "devDependencies": {
+  "dependencies": {
     "@types/minimist": "^1.2.5",
     "@types/node": "^20.11.19",
     "chalk": "^4",
