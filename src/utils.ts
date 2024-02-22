@@ -133,7 +133,7 @@ export const scanDirectory = async (dirPath: string, excludeDirs: string[]) => {
   try {
     let gitignoreContents = getGitignore(dirPath);
     if (!gitignoreContents) {
-      gitignoreContents = "-not -path **/node_modules/**"; // Default fallback
+      gitignoreContents = "-not -path **/node_modules/**";
     }
 
     const findCommand = [

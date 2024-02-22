@@ -1,9 +1,10 @@
 {
   "name": "outdated-package-checker",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/index.js",
-  "repository": "https://github.com/adesege/package-upgrade-advisor.git",
+  "repository": "https://github.com/adesege/outdated-package-checker.git",
   "author": "Temitayo Fadojutimi <fadojutimitemitayo@gmail.com",
+  "homepage": "https://github.com/adesege/outdated-package-checker.git",
   "license": "MIT",
   "files": [
     "dist/"

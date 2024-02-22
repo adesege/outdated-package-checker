@@ -11,15 +11,13 @@ const exportToCSV = require("../dist/index");
 const args = minimist(process.argv.slice(2));
 const scanDir = args["scan-dir"];
 const excludeDirs = args["exclude-dir"] ? args["exclude-dir"].split(",") : [];
+const cwd = process.cwd();
 
 if (scanDir) {
-  scanDirectory(process.cwd(), excludeDirs);
+  scanDirectory(cwd, excludeDirs);
 } else {
   const packageManager = args["package-manager"] || args["pm"] || "yarn";
-  getOutdatedPackages(packageManager).then((outdatedPackages) => {
-    exportToCSV.default(
-      outdatedPackages,
-      pathPrefix(path.basename(process.cwd()))
-    );
+  getOutdatedPackages(packageManager, cwd).then((outdatedPackages) => {
+    exportToCSV.default(outdatedPackages, pathPrefix(path.basename(cwd)));
   });
 }
