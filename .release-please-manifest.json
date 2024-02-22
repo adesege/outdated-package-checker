@@ -19,5 +19,6 @@
       "section": "Miscellaneous"
     }
   ],
-  "path": "dist/index.js"
+  "path": "dist/index.js",
+  ".": "1.0.0"
 }
